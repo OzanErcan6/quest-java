@@ -5,24 +5,30 @@ import com.example.demo.entities.Users;
 import com.example.demo.repos.PostRepository;
 import com.example.demo.requests.PostCreateRequest;
 import com.example.demo.requests.PostUpdateRequest;
+//import com.example.demo.responses.LikeResponse;
+//import com.example.demo.responses.PostResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+//import java.util.stream.Collectors;
 
 @Service
 public class PostServices {
 
-    PostRepository postRepository;
+    private PostRepository postRepository;
 
     private UserServices userServices;
+    //private LikeServices likeServices;
 
     @Autowired
-    public PostServices(PostRepository postRepository, UserServices userServices) {
+    public PostServices(PostRepository postRepository, UserServices userServices){//, LikeServices likeServices) {
         this.postRepository = postRepository;
         this.userServices = userServices;
+        //this.likeServices = likeServices;
+
     }
     @Transactional
     public List<Post> getAllPosts(Optional<Long> userId) {
@@ -31,6 +37,17 @@ public class PostServices {
         }
         return postRepository.findAll();
     }
+
+/*    public List<PostResponse> getAllPosts(Optional<Long> userId) {
+        List<Post> list;
+        if(userId.isPresent()) {
+            list = postRepository.findByUserId(userId.get());
+        }else
+            list = postRepository.findAll();
+        return list.stream().map(p -> {
+            List<LikeResponse> likes = likeServices.getAllLikesWithParam(Optional.ofNullable(null), Optional.of(p.getId()));
+            return new PostResponse(p, likes);}).collect(Collectors.toList());
+    }*/
 
     public Post getPostByPostId(Long postId) {
         return postRepository.findById(postId).orElse(null);

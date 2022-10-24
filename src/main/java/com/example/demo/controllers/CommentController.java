@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.entities.Comment;
 import com.example.demo.requests.CommentCreateRequest;
+import com.example.demo.requests.CommentUpdateRequest;
 import com.example.demo.services.CommentServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,10 +20,10 @@ public class CommentController {
         this.commentServices = commentServices;
     }
 
-    // /comments
-    // /comments?postId={postId}
-    // /comments?userId={userId}
-    // /comments?userId={userId}&postId={postId}
+    // /comment
+    // /comment?postId={postId}
+    // /comment?userId={userId}
+    // /comment?userId={userId}&postId={postId}
     @GetMapping
     public List<Comment> getAllComments(@RequestParam Optional<Long> userId, @RequestParam Optional<Long> postId){
         return commentServices.getAllCommentsWithParam(userId,postId);
@@ -36,5 +37,15 @@ public class CommentController {
     @GetMapping("/{commentId}")
     public Comment getCommentByCommentId(@PathVariable Long commentId){
         return commentServices.findByCommentId(commentId);
+    }
+
+    @PutMapping("/{commentId}")
+    public Comment updateCommentByCommentId(@PathVariable Long commentId, @RequestBody CommentUpdateRequest commentUpdateRequest){
+        return commentServices.updateCommentByCommentId(commentId, commentUpdateRequest);
+    }
+
+    @DeleteMapping("/{commentId}")
+    public void deleteCommentByCommentId(@PathVariable Long commentId){
+        commentServices.deleteCommentByCommentId(commentId);
     }
 }

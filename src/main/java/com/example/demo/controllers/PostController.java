@@ -4,15 +4,18 @@ import com.example.demo.entities.Post;
 import com.example.demo.entities.Users;
 import com.example.demo.requests.PostCreateRequest;
 import com.example.demo.requests.PostUpdateRequest;
+import com.example.demo.responses.PostResponse;
 import com.example.demo.services.PostServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/posts")
+@CrossOrigin
 public class PostController {
     private PostServices postServices;
 
@@ -44,7 +47,7 @@ public class PostController {
 
     @DeleteMapping("/{postId}")
     public void deletePostByPostId(@PathVariable Long postId){
-
-        }
+        postServices.deletePostByPostId(postId);
+    }
 
 }
