@@ -1,12 +1,22 @@
 package com.example.demo.entities;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name="post")
@@ -14,14 +24,13 @@ import org.hibernate.annotations.OnDeleteAction;
 public class Post {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	Long id;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="user_id", nullable = false) // to set relation of tables
-	@OnDelete(action = OnDeleteAction.CASCADE) // when a user deleted, all posts' will deleted
-	@JsonIgnore // for serilization
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="user_id", nullable=false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	Users user;
+	
 	String title;
 	@Lob
     @Column(columnDefinition="text")

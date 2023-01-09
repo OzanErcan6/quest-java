@@ -5,6 +5,8 @@ import com.example.demo.entities.Users;
 import com.example.demo.repos.PostRepository;
 import com.example.demo.requests.PostCreateRequest;
 import com.example.demo.requests.PostUpdateRequest;
+import com.example.demo.responses.PostResponse;
+
 //import com.example.demo.responses.LikeResponse;
 //import com.example.demo.responses.PostResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 //import java.util.stream.Collectors;
 
 @Service
@@ -30,13 +33,15 @@ public class PostServices {
         //this.likeServices = likeServices;
 
     }
-    @Transactional
-    public List<Post> getAllPosts(Optional<Long> userId) {
-        if(userId.isPresent()){
-            return postRepository.findByUserId(userId.get());
-        }
-        return postRepository.findAll();
-    }
+    //@Transactional
+    public List<PostResponse> getAllPosts(Optional<Long> userId) {
+		List<Post> list;
+		if(userId.isPresent()) {
+			 list = postRepository.findByUserId(userId.get());
+		}
+		list = postRepository.findAll();
+		return list.stream().map(p -> new PostResponse(p)).collect(Collectors.toList());
+	}
 
 /*    public List<PostResponse> getAllPosts(Optional<Long> userId) {
         List<Post> list;
