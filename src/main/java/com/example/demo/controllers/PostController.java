@@ -26,9 +26,9 @@ public class PostController {
 
     // works for both URIs /posts ve /posts?userId={userId}
     @GetMapping
-	public List<PostResponse> getAllPosts(@RequestParam Optional<Long> userId) {
-		return postServices.getAllPosts(userId);
-	}
+    public List<PostResponse> getAllPosts(@RequestParam Optional<Long> userId) {
+        return postServices.getAllPosts(userId);
+    }
 
     @GetMapping("/{postId}")
     public Post getPostByPostId(@PathVariable Long postId){

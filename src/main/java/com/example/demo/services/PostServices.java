@@ -37,9 +37,11 @@ public class PostServices {
     public List<PostResponse> getAllPosts(Optional<Long> userId) {
 		List<Post> list;
 		if(userId.isPresent()) {
-			 list = postRepository.findByUserId(userId.get());
+             list = postRepository.findByUserId(userId.get());
 		}
-		list = postRepository.findAll();
+        else{
+            list = postRepository.findAll();
+        }
 		return list.stream().map(p -> new PostResponse(p)).collect(Collectors.toList());
 	}
 

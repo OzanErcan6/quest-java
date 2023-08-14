@@ -11,18 +11,17 @@ import org.hibernate.annotations.OnDeleteAction;
 @Data
 public class Like {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
-
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="post_id", nullable = false) // to set relation of tables
-	@OnDelete(action = OnDeleteAction.CASCADE) // when a user deleted, all posts' will deleted
-	@JsonIgnore // for serilization
+	@JoinColumn(name="post_id", nullable=false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
 	Post post;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="user_id", nullable = false) // to set relation of tables
-	@OnDelete(action = OnDeleteAction.CASCADE) // when a user deleted, all posts' will deleted
-	@JsonIgnore // for serilization
+	@JoinColumn(name="user_id", nullable=false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
 	Users user;
 }

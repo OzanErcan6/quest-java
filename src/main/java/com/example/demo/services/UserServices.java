@@ -22,8 +22,14 @@ public class UserServices {
         return userRepository.findAll();
     }
 
-    public Users createUser(Users newUser){
-        return userRepository.save(newUser);
+    public Users createUser(Users newUser) {
+        Users newU;
+        try {
+            newU = userRepository.save(newUser);
+        } catch (Exception e) {
+            throw e;
+        }
+        return newU;
     }
 
     public Users getUserByUserId(Long userId){
