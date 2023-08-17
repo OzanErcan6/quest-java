@@ -1,7 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.entities.Users;
-import com.example.demo.services.UserServices;
+import com.example.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,11 +10,12 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
+@CrossOrigin
 public class UserController {
-    private UserServices userService;
+    private UserService userService;
 
     @Autowired
-    public UserController(UserServices userService){
+    public UserController(UserService userService){
         this.userService = userService;
     }
 

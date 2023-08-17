@@ -14,16 +14,16 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CommentServices {
+public class CommentService {
     private CommentRepository commentRepository;
-    private UserServices userServices;
-    private PostServices postServices;
+    private UserService userService;
+    private PostService postService;
 
     @Autowired
-    public CommentServices(CommentRepository commentRepository, UserServices userServices, PostServices postServices) {
+    public CommentService(CommentRepository commentRepository, UserService userService, PostService postService) {
         this.commentRepository = commentRepository;
-        this.userServices = userServices;
-        this.postServices = postServices;
+        this.userService = userService;
+        this.postService = postService;
     }
 
     @Transactional
@@ -47,8 +47,8 @@ public class CommentServices {
     }
     @Transactional
     public Comment createComment(CommentCreateRequest commentCreateRequest) {
-        Users user = userServices.getUserByUserId(commentCreateRequest.getUserId());
-        Post post = postServices.getPostByPostId(commentCreateRequest.getPostId());
+        Users user = userService.getUserByUserId(commentCreateRequest.getUserId());
+        Post post = postService.getPostByPostId(commentCreateRequest.getPostId());
 
         if(user!=null && post!=null){
             Comment commentToSave = new Comment();

@@ -11,7 +11,6 @@ import com.example.demo.responses.PostResponse;
 //import com.example.demo.responses.PostResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,17 +18,17 @@ import java.util.stream.Collectors;
 //import java.util.stream.Collectors;
 
 @Service
-public class PostServices {
+public class PostService {
 
     private PostRepository postRepository;
 
-    private UserServices userServices;
+    private UserService userService;
     //private LikeServices likeServices;
 
     @Autowired
-    public PostServices(PostRepository postRepository, UserServices userServices){//, LikeServices likeServices) {
+    public PostService(PostRepository postRepository, UserService userService){//, LikeServices likeServices) {
         this.postRepository = postRepository;
-        this.userServices = userServices;
+        this.userService = userService;
         //this.likeServices = likeServices;
 
     }
@@ -61,7 +60,7 @@ public class PostServices {
     }
 
     public Post createPost(PostCreateRequest newPostCreateRequest) {
-        Users user = userServices.getUserByUserId(newPostCreateRequest.getUserId());
+        Users user = userService.getUserByUserId(newPostCreateRequest.getUserId());
         if(user == null)
             return null;
         Post toSave = new Post();

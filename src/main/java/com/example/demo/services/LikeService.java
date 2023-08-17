@@ -13,16 +13,16 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class LikeServices {
+public class LikeService {
 
     private LikeRepository likeRepository;
-    private UserServices userServices;
-    private PostServices postServices;
+    private UserService userService;
+    private PostService postService;
 
-    public LikeServices(LikeRepository likeRepository, UserServices userServices, PostServices postServices) {
+    public LikeService(LikeRepository likeRepository, UserService userService, PostService postService) {
         this.likeRepository = likeRepository;
-        this.userServices = userServices;
-        this.postServices = postServices;
+        this.userService = userService;
+        this.postService = postService;
     }
 
 
@@ -41,8 +41,8 @@ public class LikeServices {
 
     // add the feature if a user liked a post could not like again
     public Like createLike(LikeCreateRequest likeCreateRequest) {
-        Users user = userServices.getUserByUserId(likeCreateRequest.getUserId());
-        Post post = postServices.getPostByPostId(likeCreateRequest.getPostId());
+        Users user = userService.getUserByUserId(likeCreateRequest.getUserId());
+        Post post = postService.getPostByPostId(likeCreateRequest.getPostId());
 
         if(user!=null && post!=null){
             Like likeToSave = new Like();

@@ -7,4 +7,7 @@ import com.example.demo.entities.Users;
 import java.util.List;
 
 public interface UserRepository extends JpaRepository<Users, Long>{
+
+    Users findByUserName(String userName);
+
 }
